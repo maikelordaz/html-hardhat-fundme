@@ -1,8 +1,3 @@
-/*
- * En nodejs aqui estaria importando dependencias y paquetes con require() pero en el javascript
- * para frontend no puedo usar requires. Se deben usar imports. Con react y nodejs si puedo hacer
- * los require normales
- */
 import { ethers } from "./ethers-5.6.esm.min.js"
 import { abi, contractAddress } from "./constants.js"
 
@@ -17,7 +12,6 @@ fundButton.onclick = fund
 balanceButton.onclick = getBalance
 
 async function connect() {
-    // con este if veo si metamask esta instalado
     if (typeof window.ethereum !== "undefined") {
         try {
             await ethereum.request({ method: "eth_requestAccounts" }) // me conecto a metamask
@@ -54,21 +48,9 @@ async function fund() {
     const ethAmount = document.getElementById("ethAmount").value
     console.log(`Funding with ${ethAmount}...`)
     if (typeof window.ethereum !== "undefined") {
-        /*
-         * Para enviar una transaccion vamos a necesitar:
-         * 1. provider => que me conecta a la blockchain
-         * 2. signer / wallet => alguien que tenga gas para pagar
-         * 3. contracto para interactuar
-         *    3.1 ABI
-         *    3.2 address
-         */
-        // PROVIDER
-        const provider = new ethers.providers.Web3Provider(window.ethereum) // tomo metamask
-        // SIGNER
-        const signer = provider.getSigner() // toma la wallet conectada
-        // CONTRATO
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
         const contract = new ethers.Contract(contractAddress, abi, signer)
-        // Creo la transaccion con un try catch
         try {
             const transactionResponse = await contract.fund({
                 value: ethers.utils.parseEther(ethAmount),

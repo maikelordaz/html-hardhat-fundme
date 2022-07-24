@@ -1,10 +1,3 @@
-/*
- * El ABI de un contrato lo voy a encontrar en su directorio raiz en:
- * artifacts/contracts/<mi_contrato>/<mi_contrato.json>
- * Para el address, abro una terminal nueva, me muevo al directorio donde tengo el contrato
- * doy yarn hardhat node y tomo la direccion del deploy
- */
-
 export const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
 export const abi = [
     {
